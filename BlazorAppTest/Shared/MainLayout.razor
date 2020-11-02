@@ -11,14 +11,22 @@
 
     @if (Installable)
     {
-        <div class="fixed-bottom d-flex align-items-center justify-content-between install-prompt">
-            <span>Install this app?</span>
-            <span>
-                <button class="btn btn-light btn-sm mx-2" @onclick="@InstallClicked">Install</button>
-                <button class="btn btn-outline-light btn-sm" @onclick="@(()=>Installable=false)">Cancel </button>
-            </span>
-        </div>
+    <div class="fixed-bottom d-flex align-items-center justify-content-between install-prompt">
+        <span>Install this app?</span>
+        <span>
+            <button class="btn btn-light btn-sm mx-2" @onclick="@InstallClicked">Install</button>
+            <button class="btn btn-outline-light btn-sm" @onclick="@(()=>Installable=false)">Cancel </button>
+        </span>
+    </div>
     }
+
+    <div class="fixed-bottom d-flex align-items-center justify-content-between install-prompt">
+        <span>Install this app?</span>
+        <span>
+            <button class="btn btn-light btn-sm mx-2" @onclick="@InstallClicked">Install</button>
+            <button class="btn btn-outline-light btn-sm" @onclick="@(()=>Installable=false)">Cancel </button>
+        </span>
+    </div>
 
     <div class="content px-4">
         @Body
