@@ -1,7 +1,48 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>TEB Blazor Demo</h1>
+@*<SurveyPrompt Title="How is Blazor working for you?" />*@
+@if (Installable)
+{
+    <div>
+        <span>Uygulamayı yüklemek ister misiniz?</span>
+        <br />
+        <div>
+            <button class="btn btn-light btn-sm mx-2" @onclick="@InstallClicked">Yükle</button>
+            <button class="btn btn-light btn-sm" @onclick="@(()=>Installable=false)">İptal</button>
+        </div>
+    </div>
+}
 
-Welcome to your new app.
+@code{
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected override void OnInitialized()
+    {
+        ml = () => InvokeAsync(StateHasChanged);// PWA infrastructure
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ml = async () => await InvokeAsync(StateHasChanged);// PWA infrastructure
+    }
+
+    // PWA infrastructure
+    [Inject] IJSRuntime JSRuntime { get; set; } // needs to be here not as a @inject directive
+    static bool Installable = false;
+    static Action ml;
+
+    [JSInvokable("InstallPwaPrompt")]
+    //a named method so that it is easy to call from JS Interop
+    public static Task InstallPwaPrompt()
+    {
+        Installable = true;
+        ml.Invoke();
+        return Task.CompletedTask;
+    }
+
+    async void InstallClicked(MouseEventArgs args)
+    {
+        Installable = false;
+        await JSRuntime.InvokeAsync<object>("OnPwaInstallClick");
+    }
+}

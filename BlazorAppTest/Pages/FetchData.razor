@@ -1,23 +1,21 @@
 @page "/fetchdata"
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
+<h1>Hava Tahmini</h1>
 
 @if (forecasts == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Yükleniyor...</em></p>
 }
 else
 {
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Tarih</th>
+                <th>Sıcaklık. (C)</th>
+                <th>Sıcaklık. (F)</th>
+                <th>Özet</th>
             </tr>
         </thead>
         <tbody>
